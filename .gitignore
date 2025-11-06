@@ -31,3 +31,29 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# === Secrets / 本番用 ===
+.env
+*.env
+application-prod.properties
+application-secret.properties
+application-*.secret.*
+*.keystore
+*.jks
+*.p12
+*.pem
+*.key
+*.crt
+
+# === Logs / Dumps ===
+*.log
+logs/
+hs_err_pid*
+heapdump*.hprof
+
+# === Eclipse系（追加分） ===
+bin/
+
+# === OSのゴミ ===
+.DS_Store
+Thumbs.db
