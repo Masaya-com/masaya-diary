@@ -3,9 +3,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="description" content="日記・タスク管理・自己管理をひとつにまとめた「まさやの日常」。今日の気分や行動を記録し、振り返りで習慣化をサポート。Webブラウザで簡単に使える日記アプリです。">
 <title>まさやの日常</title>
 <link rel="stylesheet" th:href="@{/css/top.css}">
 <link rel="stylesheet" th:href="@{/css/common.css}">
+<link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}">
 </head>
 <body>
 	<header th:replace="~{common/header :: header('TOPページ')}"></header>
@@ -18,7 +20,7 @@
 				</ul>
 			</div>
 			<div class = "recently">
-			    <h2 class = "recently-task-title">最近の日記</h3>
+			    <h2 class = "recently-task-title">最近の日記</h2>
 			    <ul th:each="diary : ${recentlyTaskList}" class = "task-list">
 			       <li>
 	          		   <span th:text="${#temporals.format(diary.entryDate, 'yyyy年M月d日(E)')}"></span> |
