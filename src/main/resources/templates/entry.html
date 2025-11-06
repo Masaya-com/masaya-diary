@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>まさやの日常 - 日記入力ページ</title>
+    <link rel="stylesheet" th:href="@{/css/entry.css}">
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+</head>
+<body>
+    <header th:replace="~{common/header :: header('日記入力ページ')}"></header>
+    <main>
+        <div class="entry-form-container">
+            <h2 class="entry-form-title"><span th:text="${#temporals.format(today, 'yyyy年MM月dd日')}"></span>の記録</h2>
+            <div class="today-task-section">
+                <h3 class="today-task-subtitle">今日やること</h3>
+                <div class="yesterday-task-info">
+					<ul class = "task-list">
+			            <li th:each="todo : ${todayTodos}" th:text="${todo}"></li>
+					</ul>
+                </div>
+            </div>
+            <form th:action="@{/diary/entry}" method="post" class="entry-all-form">
+                <div class="done-task-section">
+                    <h3 class="done-task-subtitle">今日やったこと</h3>
+                    <div class="done-task-instruction">
+                        <input type="text" id="doneTaskInput" class="done-task-textarea" placeholder="今日やったことを記入してください。">
+                        <button type="button" id="addDoneTaskBtn">追加</button>
+                        <ul id="doneTaskList" class="done-task-list"></ul>
+                        <input type="hidden" name="doneToday" id="doneTaskHidden" required>
+                    </div>
+                </div>
+                <div class="impression-section">
+                    <h3 class="impression-subtitle">今日の感想</h3>
+                    <div class="impression-instruction">
+                        <textarea name="impression" class="impression-textarea" placeholder="今日の感想を記入してください。" required></textarea>
+                    </div>
+                </div>
+                <div class="mood-section">
+                    <h3 class="mood-subtitle">今日の気分</h3>
+                    <div class="mood-instruction">
+                        <select name="mood" class="mood-select" required>
+                            <option value="" disabled selected>気分を選択してください</option>
+                            <option value="5">5</option>
+                            <option value="4">4</option>
+                            <option value="3">3</option>
+                            <option value="2">2</option>
+                            <option value="1">1</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="tomorrow-task-section">
+                    <h3 class="tomorrow-task-subtitle">明日やること（通知）</h3>
+                    <div class="tomorrow-task-instruction">
+                        <input type="text" id="tomorrowTaskInput" class="tomorrow-task-textarea" placeholder="明日やることを記入してください。">
+                        <button type="button" id="addTomorrowTaskBtn">追加</button>
+                        <ul id="tomorrowTaskList" class="tomorrow-task-list"></ul>
+                        <input type="hidden" name="todoTomorrow" id="tomorrowTaskHidden" required>
+                    </div>
+                </div>
+                <div class="entry-buttons">
+                    <button type="submit" class="entry-submit-button">記録する</button>
+                </div>
+            </form>
+        </div>
+    </main>
+    <footer th:replace="~{common/footer :: footer}"></footer>
+    <script th:src="@{/js/entry.js}"></script>
+</body>
+</html>

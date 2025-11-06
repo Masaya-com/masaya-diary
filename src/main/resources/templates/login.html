@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html thymeleaf="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>まさやの日常 - ログイン画面</title>
+<link rel="stylesheet" th:href="@{/css/login.css}">
+</head>
+<body>
+	<div class="container">
+        <h1>ログイン画面</h1>
+        <form th:action="@{/login}" method="post" >
+             <div>
+                 <label for="email">メールアドレス</label><br>
+                 <input type="email" id="email" name="username">
+             </div>
+             <div>
+                 <label for="passwordHash">パスワード</label><br>
+                 <input type="password" id="passwordHash"  name="password">
+             </div>
+             <div class="button-container">
+                 <button type="submit" >ログイン</button>
+                 <button type="button" th:onclick="|location.href='@{/register}'|">新規登録</button>
+             </div>
+         </form>
+      </div>
+
+</body>
+</html>

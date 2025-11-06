@@ -1,0 +1,113 @@
+@charset "UTF-8";
+
+/* 設定画面全体のレイアウト */
+.setting-container {
+  max-width: 480px;
+  margin: 40px auto;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  padding: 32px 24px 24px 24px;
+}
+
+.setting-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.setting-description {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 24px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.label {
+  flex: 0 0 100px;
+  font-weight: 500;
+  color: #444;
+}
+
+.toggle[type="checkbox"] {
+  width: 22px;
+  height: 22px;
+  accent-color: #4caf50;
+  margin-right: 12px;
+}
+
+.hint {
+  font-size: 0.92rem;
+  color: #888;
+  margin-left: 10px;
+}
+
+select {
+  padding: 4px 12px;
+  border-radius: 6px;
+  border: 1px solid #bbb;
+  font-size: 1rem;
+  margin-left: 8px;
+}
+
+.save-button {
+  background: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 32px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.save-button:hover {
+  background: #388e3c;
+}
+
+
+
+/*スマホレスポンシブ*/
+
+@media (max-width: 600px) {
+  .setting-container {
+    padding: 16px 4px 16px 4px;
+    max-width: 98vw;
+    min-width: 0;
+	width: 90%;
+  }
+  .row {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 18px;
+  }
+  .label {
+    margin-bottom: 4px;
+    flex: none;
+    width: 100%;
+  }
+  .toggle[type="checkbox"] {
+    margin-right: 0;
+    margin-bottom: 8px;
+  }
+  select {
+    width: 100%;
+    margin-left: 0;
+    margin-bottom: 8px;
+  }
+  .save-button {
+    width: 100%;
+    padding: 12px 0;
+    font-size: 1.1rem;
+  }
+  .hint {
+    margin-left: 0;
+    margin-top: 2px;
+  }
+}

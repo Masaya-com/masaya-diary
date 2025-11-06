@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+<meta charset="UTF-8">
+<title>まさやの日常</title>
+<link rel="stylesheet" th:href="@{/css/top.css}">
+<link rel="stylesheet" th:href="@{/css/common.css}">
+</head>
+<body>
+	<header th:replace="~{common/header :: header('TOPページ')}"></header>
+	<main>
+		<div class = "top-info">
+			<div class = "today-task">
+			    <h2 class = "today-task-title">TODOリスト（<span th:text="${#temporals.format(today, 'yyyy年MM月dd日')}"></span>）</h2>
+				<ul class = "task-list">
+				    <li th:each="todo : ${todayTodos}" th:text="${todo}"></li>
+				</ul>
+			</div>
+			<div class = "recently">
+			    <h2 class = "recently-task-title">最近の日記</h3>
+			    <ul th:each="diary : ${recentlyTaskList}" class = "task-list">
+			       <li>
+	          		   <span th:text="${#temporals.format(diary.entryDate, 'yyyy年M月d日(E)')}"></span> |
+		               <span th:text="${diary.mood}"></span> |
+			           <span th:text="${diary.reflection}"></span>
+	               </li>
+		        </ul>
+			</div>
+		</div>
+		
+		<div class = "diary-buttons">
+			<a th:href="@{/diary/new}" class="new-diary-link">新しい日記をつける</a>
+		    <a th:href="@{/diary/list}" class = "more-link">日記一覧へ</a>
+		</div>
+	</main>
+	<footer th:replace="~{common/footer :: footer}"></footer>
+
+</body>
+</html>

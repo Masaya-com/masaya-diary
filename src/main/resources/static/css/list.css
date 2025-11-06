@@ -1,0 +1,83 @@
+@charset "UTF-8";
+
+.diary-list-container{
+    margin: 20px 0;
+    padding: 20px;
+    background-color: #FFFFFF;
+    border: 1px solid #DDD5C7;
+    border-radius: 10px;
+}
+
+.diary-list-container h2{
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.5em;
+    color: #9B7E59;
+}
+
+
+.diary-list{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.diary-list p{
+	letter-spacing: 0.05em;
+}
+
+.diary-list li{
+	margin-bottom: 15px;
+	padding: 10px;
+	border: 1px solid #DDD5C7;
+	background-color: #FAF9F2;
+	border-radius: 5px;
+}
+
+/*AI*/
+
+.search-container {
+    margin: 20px 0 30px 0;
+    padding: 20px;
+    background-color: #FAF9F2;
+    border: 1px solid #DDD5C7;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(155, 126, 89, 0.05);
+}
+
+.search-title {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.3em;
+    color: #9B7E59;
+    letter-spacing: 0.05em;
+}
+
+.search-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.search-form input[type="month"] {
+    padding: 6px 10px;
+    border: 1px solid #DDD5C7;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #9B7E59;
+    font-size: 1em;
+}
+
+.search-form button {
+    padding: 6px 16px;
+    background-color: #9B7E59;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.search-form button:hover {
+    background-color: #7a6242;
+}

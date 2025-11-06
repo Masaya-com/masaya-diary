@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Header</title>
+</head>
+<body>
+	
+	<header th:fragment="header(pageTitle)">
+		<div class="header">
+            <h1 class="header-logo">
+                <a th:href="@{/diary/top}"><span class="site-title">まさやの日常 - </span><span th:if="${pageTitle != null}" th:text=" ${pageTitle}" class="page-title"></span></a>
+            </h1>
+			<div class="header-links">
+				<a th:href="@{/diary/setting}" class="setting">通知</a>
+				<form th:action="@{/logout}" method="post" class="logout-form">
+					<button type="submit" class="logout-btn">ログアウト</button>
+				</form>
+			</div>
+			
+		</div>
+    </header>
+
+</body>
+</html>

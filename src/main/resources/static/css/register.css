@@ -1,0 +1,82 @@
+@charset "UTF-8";
+
+body {
+    background-color: #FAF9F2;
+    font-family: 'Yu Gothic', '游ゴシック体', 'Meiryo', 'メイリオ', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    background: #fff;
+    max-width: 440px;
+    margin: 60px auto;
+    padding: 36px 32px 28px 32px;
+    border-radius: 12px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+}
+
+h1 {
+    text-align: center;
+    color: #3a3a3a;
+    margin-bottom: 28px;
+    font-size: 1.6em;
+}
+
+label {
+    color: #555;
+    font-size: 1em;
+    margin-bottom: 6px;
+    display: block;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 12px;
+    border: 1px solid #d0d0d0;
+    border-radius: 6px;
+    font-size: 1em;
+    background: #fafafa;
+    box-sizing: border-box;
+}
+
+button[type="submit"],
+button[type="button"] {
+    background: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 24px;
+    font-size: 1em;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: background 0.2s;
+}
+
+button[type="button"] {
+    background: #2196f3;
+    margin-right: 0;
+}
+
+button:hover {
+    opacity: 0.85;
+}
+
+[style*="color:red"] {
+    font-size: 0.95em;
+    margin-bottom: 8px;
+}
+
+@media (max-width: 500px) {
+    .container {
+        max-width: 97vw;
+        padding: 18px 8px;
+    }
+    h1 {
+        font-size: 1.2em;
+    }
+}

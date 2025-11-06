@@ -1,0 +1,149 @@
+@charset "UTF-8";
+
+main{
+	width: 90%;
+	margin: 20px auto;
+}
+
+h2{
+	color: #9B7E59;
+}
+
+li {
+	margin: 10px 0;
+}
+
+.top-info{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	
+}
+.today-task,.recently{
+	margin: 15px 0;
+	padding: 10px;
+	border: 1px solid #DDD5C7;
+	background-color: #FFFFFF;
+	border-radius: 5px;
+	width: 45%;
+	height: 250px;
+}
+
+.today-task ul,.recently ul{
+	list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.diary-buttons {
+	display: flex;
+	justify-content: center;     /* 中央寄せ */
+	gap: 60px;                   /* ← ボタン間の余白をここで指定 */
+    align-items: center;
+    margin: 30px;
+	text-align: center;
+	
+	
+}
+.diary-buttons a {
+    display: inline-block;
+	text-decoration: none;
+    min-width: 220px;
+    margin: 0;
+    padding: 14px 0;
+    text-align: center;
+    background: linear-gradient(90deg, #F9E7D2 0%, #F7CAC9 100%);
+    border: none;
+    border-radius: 30px;
+    box-shadow: 0 2px 8px rgba(155, 126, 89, 0.10);
+    color: #9B7E59;
+    font-weight: bold;
+    font-size: 1.1em;
+    letter-spacing: 0.05em;
+    transition: background 0.3s, color 0.3s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+	margin-bottom: 20px;
+}
+.diary-buttons a::before {
+    content: "\1F495 "; /* Sparkling heart emoji */
+    font-size: 1.2em;
+    vertical-align: middle;
+    margin-right: 6px;
+}
+.diary-buttons a.more-link::before {
+    content: "\1F4D6 "; /* Book emoji */
+}
+.diary-buttons a:hover {
+    background: linear-gradient(90deg, #F7CAC9 0%, #F9E7D2 100%);
+    color: #fff;
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 4px 16px rgba(155, 126, 89, 0.18);
+}
+.diary-buttons a:active {
+    color: #9B7E59;
+    box-shadow: 0 1px 4px rgba(155, 126, 89, 0.10);
+}
+
+.today-task-title, .recently-task-title {
+    font-size: 1.3em;
+    font-weight: 700;
+    font-family: 'Yu Gothic', '游ゴシック体', 'Meiryo', 'メイリオ', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    letter-spacing: 0.03em;
+}
+
+.task-list li {
+    font-size: 1.1em;
+    font-weight: 500;
+    font-family: 'Yu Gothic', '游ゴシック体', 'Meiryo', 'メイリオ', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    line-height: 1.8;
+    letter-spacing: 0.02em;
+}
+
+
+/*タブレット対応*/
+
+@media screen and (max-width: 1024px) and (min-width: 769px){
+    
+    main{
+        width: 95%;
+        margin: 15px auto;
+    }
+    .today-task,.recently{
+        width: 100%;
+        height: auto;
+    }
+}
+
+/*スマホレスポンシブ*/
+
+
+@media screen and (max-width: 768px){
+	
+    main{
+        width: 90%;
+        margin: 10px auto;
+    }
+    .top-info{
+        display: block;
+    }
+	.today-task,.recently{
+        width: 100%;
+        height: auto;
+        margin-bottom: 20px;
+    }
+
+	.today-task ul,.recently ul{
+		list-style: disc;
+		list-style-position: inside;
+	}
+    .diary-buttons {
+        gap: 10px;
+    }
+    .diary-buttons a {
+        min-width: 0;
+        width: 100%;
+        font-size: 1em;
+        padding: 12px 0;
+    }
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>まさやの日常 - 新規登録画面</title>
+    <link rel="stylesheet" th:href="@{/css/register.css}">
+</head>
+<body>
+    <div class="container">
+        <h1>ユーザー新規登録</h1>
+        <form th:action="@{/register}" method="post" th:object="${userValidation}">
+            <div th:if="${param.error}" style="color:red;">登録内容に不備があります。</div>
+            <div>
+                <label for="username">ユーザー名</label><br>
+                <input type="text" id="username" th:field="*{username}" name="username">
+                <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" style="color:red"></div>
+            </div>
+            <div>
+                <label for="email">メールアドレス</label><br>
+                <input type="email" id="email" th:field="*{email}" name="email">
+                <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color:red"></div>
+            </div>
+            <div>
+                <label for="passwordHash">パスワード</label><br>
+                <input type="password" id="passwordHash" th:field="*{passwordHash}" name="passwordHash">
+                <div th:if="${#fields.hasErrors('passwordHash')}" th:errors="*{passwordHash}" style="color:red"></div>
+            </div>
+            <div>
+                <label for="confirmPassword">パスワード（確認用）</label><br>
+                <input type="password" id="confirmPassword" th:field="*{confirmPassword}" name="confirmPassword">
+                <div th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}" style="color:red"></div>
+            </div>
+            <div>
+                <label for="displayName">表示名</label><br>
+                <input type="text" id="displayName" th:field="*{displayName}" name="displayName">
+                <div th:if="${#fields.hasErrors('displayName')}" th:errors="*{displayName}" style="color:red"></div>
+            </div>
+            <div th:if="${#fields.hasErrors('passwordValid')}">
+                <div th:errors="*{passwordValid}" style="color:red"></div>
+            </div>
+            <div>
+                <button type="submit">登録</button>
+                <button type="button" th:onclick="|location.href='@{/login}'|">戻る</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

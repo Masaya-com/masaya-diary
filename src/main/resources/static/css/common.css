@@ -1,0 +1,125 @@
+@charset "UTF-8";
+
+/* 共通 */
+
+body{
+	background-color: #FAF9F2;
+	padding: 20px 25px;
+	margin: 0;
+	font-size: 16px;
+	font-family: 'Yu Gothic', '游ゴシック体', 'Meiryo', 'メイリオ', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-weight: 500;
+}
+
+h2{
+	font-size: 20px;
+}
+
+h3{
+	font-size: 18px;
+}
+
+
+
+/*ヘッダー*/
+
+.header{
+	border: 2px solid #DDD5C7;
+	border-radius: 8px;
+	display: flex;
+	align-items: center;
+	padding: 10px 20px;
+}
+
+.header-logo{
+    font-size: 24px;
+    font-weight: bold;
+	cursor: pointer;
+	
+	
+}
+
+.header-logo a{
+	text-decoration: none;
+	color: #617A57;
+}
+
+.header-logo a:hover{
+	opacity: 0.7;
+}
+
+/*通知ボタン*/
+
+.setting{
+	font-size: 16px;
+	background-color: #617A57;
+	border: 1px solid #617A57;
+	color: #FFFFFF;
+	padding: 10px 30px;
+	border-radius: 50px;
+	cursor: pointer;
+    text-decoration: none;
+	
+	
+}
+
+.setting:hover{
+    background-color: #FFFFFF;
+    color: #617A57;
+    text-decoration: none;
+}
+
+.header-links{
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* ログアウトボタン */
+.logout-form {
+    margin: 0;
+}
+.logout-btn {
+    background: #e57373;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 18px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.logout-btn:hover {
+    background: #c62828;
+    opacity: 0.85;
+}
+
+/*フッター*/
+
+.footer{
+	border: 2px solid #DDD5C7;
+	border-radius: 8px;
+	font-size: 14px;
+	color: #2E2E2E;
+	padding: 10px 20px;
+	margin-top: 20px;
+}
+
+@media (max-width: 600px) {
+  .site-title {
+    display: none;
+  }
+  .page-title {
+    display: inline;
+    font-size: 18px;
+  }
+  
+  h2{
+	font-size: 16px;
+  }
+  
+  *{
+	font-size: 14px;
+  }
+}

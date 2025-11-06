@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+<meta charset="UTF-8">
+<title>まさやの日常 - 設定画面</title>
+<link rel="stylesheet" th:href="@{/css/setting.css}">
+<link rel="stylesheet" th:href="@{/css/common.css}">
+<meta name="_csrf" th:content="${_csrf?.token}">
+<meta name="_csrf_header" th:content="${_csrf?.headerName}">
+</head>
+<body>
+	<header th:replace="~{common/header :: header('設定画面')}"></header>
+	<main>
+		<div class="setting-container">
+			<h2 class="setting-title">通知設定</h2>
+			<p class="setting-description">Web Push / メール / 時刻（既定：7時）</p>
+            <div class = "setting-web push">
+		</div>
+		<form th:action="@{/diary/settingPost}" th:object="${prefs}" method="post">
+		  <input type="hidden" th:name="${_csrf?.parameterName}" th:value="${_csrf?.token}">
+		  <input type="hidden" th:field="*{userId}"/>
+
+		  <div class="row">
+		    <div class="label">Web Push</div>
+		    <input class="toggle" type="checkbox" th:field="*{enableWebPush}" id="enableWebPush">
+		    <span class="hint">ブラウザの通知許可が必要です</span>
+		  </div>
+
+		  <div class="row">
+		    <div class="label">メール通知</div>
+		    <input class="toggle" type="checkbox" th:field="*{enableEmail}">
+		    <span class="hint">メールアドレスに送信します</span>
+		  </div>
+
+		  <div class="row">
+		    <div class="label">通知時刻</div>
+		    <select th:field="*{notifyHour}">
+		      <option th:each="h : ${#numbers.sequence(0,23)}"
+		              th:value="${h}"
+		              th:text="${h} + ':00'">7:00</option>
+		    </select>
+		    <span class="hint">日本時間</span>
+		  </div>
+		  <div class="row">
+            <button type="submit" class="save-button">保存</button>
+		  </div>
+		</form>
+	</main>
+	<script>
+	const CONTEXT = '/masaya-diary';   // context-path
+	const VAPID_PUBLIC_KEY = 'BBZlywJDTk8gROn5FlOQvTE0QMWr4wdc_QS46JrJjN2xxKCd0x2w-_o73lo_RxdgyeE8bvxmlyZRAKc4WSDviDQ';
+
+	function b64Url(buf) {
+	  const b64 = btoa(String.fromCharCode.apply(null, new Uint8Array(buf)));
+	  return b64.replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+	}
+	function urlB64ToUint8Array(base64String) {
+	  const padding = '='.repeat((4 - base64String.length % 4) % 4);
+	  const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
+	  const raw = atob(base64);
+	  const output = new Uint8Array(raw.length);
+	  for (let i=0;i<raw.length;++i) output[i] = raw.charCodeAt(i);
+	  return output;
+	}
+
+	async function getRegistration() {
+	  return navigator.serviceWorker.register(`${CONTEXT}/sw.js`);
+	}
+
+	async function subscribe() {
+	  const reg = await getRegistration();
+	  const perm = await Notification.requestPermission();
+	  if (perm !== 'granted') throw new Error('通知が許可されていません');
+
+	  const sub = await reg.pushManager.subscribe({
+	    userVisibleOnly: true,
+	    applicationServerKey: urlB64ToUint8Array(VAPID_PUBLIC_KEY)
+	  });
+
+	  const payload = {
+	    endpoint: sub.endpoint,
+	    p256dh: b64Url(sub.getKey('p256dh')),
+	    auth:   b64Url(sub.getKey('auth'))
+	  };
+
+	  const res = await fetch(`${CONTEXT}/diary/push/subscribe`, {
+	    method:'POST',
+	    headers:{'Content-Type':'application/json'},
+	    body: JSON.stringify(payload)
+	  });
+	  if (!res.ok) throw new Error(await res.text());
+	}
+
+	async function unsubscribe() {
+	  const reg = await getRegistration();
+	  const sub = await reg.pushManager.getSubscription();
+	  if (!sub) return; // そもそも未購読
+
+	  // サーバ側も消す
+	  await fetch(`${CONTEXT}/diary/push/unsubscribe`, {
+	    method:'POST',
+	    headers:{'Content-Type':'application/json'},
+	    body: JSON.stringify({ endpoint: sub.endpoint })
+	  }).catch(()=>{ /* サーバ未登録でも続行 */ });
+
+	  // ブラウザ購読解除
+	  await sub.unsubscribe();
+	}
+
+	document.addEventListener('DOMContentLoaded', () => {
+	  const cb = document.getElementById('enableWebPush');
+	  if (!('serviceWorker' in navigator) || !('PushManager' in window)) {
+	    cb.disabled = true;
+	    return alert('このブラウザはWeb Pushに対応していません');
+	  }
+
+	  // チェック切り替えで購読ON/OFF
+	  cb.addEventListener('change', async () => {
+	    cb.disabled = true;
+	    try {
+	      if (cb.checked) {
+	        await subscribe();
+	        alert('Web Pushを有効化しました');
+	      } else {
+	        await unsubscribe();
+	        alert('Web Pushを無効化しました');
+	      }
+	    } catch (e) {
+	      alert('Web Push設定に失敗しました：' + e.message);
+	      // 失敗時は元に戻す
+	      cb.checked = !cb.checked;
+	    } finally {
+	      cb.disabled = false;
+	    }
+	  });
+	});
+	function getCsrf() {
+	  const token = document.querySelector('meta[name="_csrf"]')?.content;
+	  const header = document.querySelector('meta[name="_csrf_header"]')?.content || 'X-CSRF-TOKEN';
+	  return { header, token };
+	}
+
+	async function subscribe() {
+	  const reg = await getRegistration();
+	  const perm = await Notification.requestPermission();
+	  if (perm !== 'granted') throw new Error('通知が許可されていません');
+
+	  const sub = await reg.pushManager.subscribe({
+	    userVisibleOnly: true,
+	    applicationServerKey: urlB64ToUint8Array(VAPID_PUBLIC_KEY)
+	  });
+
+	  const payload = {
+	    endpoint: sub.endpoint,
+	    p256dh: b64Url(sub.getKey('p256dh')),
+	    auth:   b64Url(sub.getKey('auth'))
+	  };
+
+	  const { header, token } = getCsrf();
+
+	  const res = await fetch(`${CONTEXT}/diary/push/subscribe`, {
+	    method:'POST',
+	    headers:{
+	      'Content-Type':'application/json',
+	      [header]: token
+	    },
+	    body: JSON.stringify(payload),
+	    credentials: 'same-origin' // 念のため
+	  });
+	  if (!res.ok) throw new Error(await res.text());
+	}
+
+	async function unsubscribe() {
+	  const reg = await getRegistration();
+	  const sub = await reg.pushManager.getSubscription();
+	  if (!sub) return;
+
+	  const { header, token } = getCsrf();
+
+	  await fetch(`${CONTEXT}/diary/push/unsubscribe`, {
+	    method:'POST',
+	    headers:{
+	      'Content-Type':'application/json',
+	      [header]: token
+	    },
+	    body: JSON.stringify({ endpoint: sub.endpoint }),
+	    credentials: 'same-origin'
+	  }).catch(()=>{});
+	  await sub.unsubscribe();
+	}
+
+	</script>
+
+
+    <footer th:replace="~{common/footer :: footer}"></footer>
+</body>
+</html>
