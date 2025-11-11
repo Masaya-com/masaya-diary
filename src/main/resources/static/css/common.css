@@ -105,21 +105,102 @@ h3{
 	padding: 10px 20px;
 	margin-top: 20px;
 }
+/* スマホ対応共通 */
+@media screen and (max-width: 768px) {
 
+  body {
+    padding: 12px;
+    font-size: 16px; /* 最低16px確保で読みやすく */
+  }
+
+  /* ヘッダーの詰まり/折返しを解消 */
+  .header {
+    padding: 10px 12px;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .header-logo {
+    font-size: 20px;
+    flex: 1 1 auto;    /* ロゴは可変幅 */
+  }
+  .header-links {
+    margin-left: 0;
+    gap: 8px;
+    width: 100%;
+    justify-content: flex-end; /* or space-between 好みで */
+  }
+  .setting,
+  .logout-btn {
+    padding: 10px 14px;
+    font-size: 15px;
+    border-radius: 10px;
+  }
+
+  /* ベース幅は100%に寄せる */
+  .container,
+  .main,
+  .content,
+  .setting-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto;
+  }
+
+  /* 入力系は横幅フィット */
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  textarea,
+  select {
+    width: 100% !important;
+    box-sizing: border-box;
+    font-size: 16px;        /* ズーム防止 */
+  }
+
+  /* ボタンは縦積みでタップしやすく */
+  button,
+  .btn,
+  .diary-buttons a {
+    width: 100%;
+    display: block;
+    margin: 8px 0;
+    padding: 12px 14px;
+    font-size: 16px;
+  }
+  .diary-buttons {
+    margin: 16px 0;
+  }
+
+  /* カード系は1カラム＆高さ自動 */
+  .today-task,
+  .recently,
+  .diary-box,
+  .todo-box {
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  /* 見出しのサイズ微調整（小さくしすぎない） */
+  h2 { font-size: 18px; }
+  h3 { font-size: 16px; }
+}
+
+
+/* 600px以下の追加微調整（※全要素 * で縮めない） */
 @media (max-width: 600px) {
-  .site-title {
-    display: none;
+  .site-title { display: none; }
+  .page-title { display: inline; font-size: 18px; }
+
+  /* 段落やラベルだけ小さめに（必要なら） */
+  p, li, label, small {
+    font-size: 15px;
+    line-height: 1.6;
   }
-  .page-title {
-    display: inline;
-    font-size: 18px;
+
+  /* カードの余白を少し詰める */
+  .today-task,
+  .recently {
+    padding: 10px;
   }
-  
-  h2{
-	font-size: 16px;
-  }
-  
-  *{
-	font-size: 14px;
-  }
+}
 }
